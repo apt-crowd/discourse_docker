@@ -90,7 +90,8 @@ run:
         - sudo -H -E -u discourse git clean -f
         - sudo -H -E -u discourse git remote set-branches --add origin main
         - sudo -H -E -u discourse git remote set-branches origin $version
-        - sudo -H -E -u discourse git fetch --depth 1 origin $version
+        - sudo -H -E -u discourse bash -c 'git ls-remote --exit-code --heads origin $version && git fetch --depth 1 origin $version || git fetch --depth 1 origin tag $version'
+        - sudo -H -E -u discourse bash -c 'git symbolic-ref -q HEAD || git switch -c $version'
         - sudo -H -E -u discourse git checkout $version
         - mkdir -p tmp
         - chown discourse:www-data tmp
