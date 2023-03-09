@@ -163,7 +163,7 @@ run:
       cmd:
         - su discourse -c 'bundle config --local deployment true'
         - su discourse -c 'bundle config --local without "development test"'
-        - su discourse -c 'bundle install --retry 3 --jobs 4 --verbose'
+        - su discourse -c 'bundle install --retry 3 --jobs 4'
 
   - exec:
       cd: $home
