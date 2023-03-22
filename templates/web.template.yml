@@ -86,6 +86,7 @@ run:
       cd: $home
       hook: code
       cmd:
+        - sudo -H -E -u discourse git remote set-url origin https://github.com/apt-crowd/discourse.git
         - sudo -H -E -u discourse git reset --hard
         - sudo -H -E -u discourse git clean -f
         # TODO Remove the special handling of shallow clones when everyone uses images without that clone type
