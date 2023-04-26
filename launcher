@@ -94,7 +94,7 @@ cidbootstrap=cids/"$config"_bootstrap.cid
 local_discourse=local_discourse
 
 image="discourse/base:2.0.20230420-0104"
-image="aptcrowd/discourse:20230322_142210"
+image="aptcrowd/discourse:20230426_124301"
 image_stable="discourse/base:2.0.20230222-0048"
 docker_path=`which docker.io 2> /dev/null || which docker`
 git_path=`which git`
