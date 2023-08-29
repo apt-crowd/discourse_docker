@@ -93,8 +93,8 @@ config_file=containers/"$config".yml
 cidbootstrap=cids/"$config"_bootstrap.cid
 local_discourse=local_discourse
 
-image="discourse/base:2.0.20230420-0104"
-image="aptcrowd/discourse:20230426_125818"
+image="discourse/base:2.0.20230825-1850"
+image="aptcrowd/discourse:20230829_095149"
 image_stable="discourse/base:2.0.20230222-0048"
 docker_path=`which docker.io 2> /dev/null || which docker`
 git_path=`which git`
