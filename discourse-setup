@@ -60,7 +60,7 @@ connect_to_port () {
       esac
     done
   else
-    echo -e "HTTP/1.1 200 OK\n\n $VERIFY" | nc -w 4 -l -p $PORT >/dev/null 2>&1 &
+    echo -e "HTTP/1.1 200 OK\n\n $VERIFY" | nc -w 4 -l $PORT >/dev/null 2>&1 &
     if curl --proto =http -s $HOST:$PORT --connect-timeout 3 | grep $VERIFY >/dev/null 2>&1; then
       return 0
     else
@@ -257,7 +257,7 @@ scale_ram_and_cpu() {
     avail_cores=`sysctl hw.ncpu | awk '/hw.ncpu:/ {print $2}'`
   else
     avail_gb=$(check_linux_memory)
-    avail_cores=$((`awk '/cpu cores/ {print $4;exit}' /proc/cpuinfo`*`sort /proc/cpuinfo | uniq | grep -c "physical id"`))
+    avail_cores=`lscpu --parse=core | egrep -v ^# | sort -u | wc -l`
   fi
   echo "Found ${avail_gb}GB of memory and $avail_cores physical CPU cores"
 
@@ -343,13 +343,13 @@ check_port() {
 ## read a variable from the config file
 ##
 read_config() {
-  config_line=`egrep "^  #?$1:" $web_file`
+  config_line=`grep -E "^  #?$1:" $web_file`
   read_config_result=`echo $config_line | awk  -F":" '{print $2}'`
   read_config_result=`echo $read_config_result | sed "s/^\([\"']\)\(.*\)\1\$/\2/g"`
 }
 
 read_default() {
-  config_line=`egrep "^  #?$1:" samples/standalone.yml`
+  config_line=`grep -E "^  #?$1:" samples/standalone.yml`
   read_default_result=`echo $config_line | awk  -F":" '{print $2}'`
   read_default_result=`echo $read_config_result | sed "s/^\([\"']\)\(.*\)\1\$/\2/g"`
 }

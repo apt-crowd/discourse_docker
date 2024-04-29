@@ -93,9 +93,9 @@ config_file=containers/"$config".yml
 cidbootstrap=cids/"$config"_bootstrap.cid
 local_discourse=local_discourse
 
-image="discourse/base:2.0.20230825-1850"
-image="aptcrowd/discourse:20230829_095149"
-image_stable="discourse/base:2.0.20230222-0048"
+image_stable="discourse/base:2.0.20231218-0429"
+image="aptcrowd/discourse:20240429_110950"
+
 docker_path=`which docker.io 2> /dev/null || which docker`
 git_path=`which git`
 
@@ -176,7 +176,7 @@ check_prereqs() {
   fi
 
   # 2. running an approved storage driver?
-  if ! $docker_path info 2> /dev/null | egrep -q 'Storage Driver: (btrfs|aufs|zfs|overlay2)$'; then
+  if ! $docker_path info 2> /dev/null | grep -E -q 'Storage Driver: (btrfs|aufs|zfs|overlay2)$'; then
     echo "Your Docker installation is not using a supported storage driver.  If we were to proceed you may have a broken install."
     echo "overlay2 is the recommended storage driver, although zfs and aufs may work as well."
     echo "Other storage drivers are known to be problematic."
